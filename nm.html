@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Grading System</title>
+  <link rel="stylesheet" href="nm.css">
+</head>
+<body>
+
+  <header class="animated-header">
+    <h1>🎓 Student Grading System</h1>
+    <p>Track Marks | Calculate Grades | View Statistics</p>
+  </header>
+
+  <main>
+    <!-- Statistics -->
+    <section class="stats-section fade-in">
+      <div class="stat-box">
+        <h3 id="totalStudents">0</h3>
+        <p>Total Students</p>
+      </div>
+      <div class="stat-box">
+        <h3 id="classAverage">0</h3>
+        <p>Class Average</p>
+      </div>
+    </section>
+
+    <!-- Student Form -->
+    <section class="form-section fade-in">
+      <h2>Add Student Marks</h2>
+      <form id="studentForm">
+        <input type="text" id="name" placeholder="Student Name" required>
+        <input type="number" id="mark1" placeholder="Mark 1" min="0" max="100" required>
+        <input type="number" id="mark2" placeholder="Mark 2" min="0" max="100" required>
+        <input type="number" id="mark3" placeholder="Mark 3" min="0" max="100" required>
+        <button type="submit" class="btn">➕ Add Student</button>
+        <button type="button" id="clearAll" class="btn danger">🗑 Clear All</button>
+      </form>
+    </section>
+
+    <!-- Student Table -->
+    <section class="table-section fade-in">
+      <h2>Student Records</h2>
+      <table id="studentTable">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Mark 1</th>
+            <th>Mark 2</th>
+            <th>Mark 3</th>
+            <th>Total</th>
+            <th>Average</th>
+            <th>Grade</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody">
+          <!-- Records will appear here -->
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 Student Grading System ✨</p>
+  </footer>
+
+  <script src="nm.js"></script>
+</body>
+</html>

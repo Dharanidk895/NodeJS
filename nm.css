@@ -1,0 +1,130 @@
+/* Reset */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  background-size: 400% 400%;
+  animation: gradientBG 10s ease infinite;
+  color: white;
+  overflow-x: hidden;
+}
+
+@keyframes gradientBG {
+  0%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+  100%{background-position:0% 50%;}
+}
+
+/* Header */
+header.animated-header {
+  text-align: center;
+  padding: 40px 20px;
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(6px);
+  border-radius: 0 0 20px 20px;
+  animation: fadeSlide 1.5s ease;
+}
+
+header h1 {
+  font-size: 2.8em;
+  text-shadow: 2px 2px 5px #000;
+}
+header p { font-size: 1.1em; opacity: 0.8; margin-top: 5px; }
+
+/* Sections */
+main { width: 90%; max-width: 1000px; margin: 20px auto; }
+
+/* Stats Section */
+.stats-section {
+  display: flex;
+  justify-content: space-around;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+.stat-box {
+  background: rgba(255,255,255,0.15);
+  padding: 20px;
+  border-radius: 15px;
+  text-align: center;
+  min-width: 120px;
+  transition: transform 0.4s;
+}
+.stat-box:hover { transform: scale(1.1) rotate(1deg); }
+
+/* Form */
+.form-section, .table-section {
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(8px);
+  padding: 20px;
+  border-radius: 15px;
+  margin-bottom: 20px;
+  animation: fadeSlide 1.5s ease;
+}
+#studentForm {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+#studentForm input, .btn {
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  flex: 1 1 150px;
+  font-size: 1em;
+}
+#studentForm input {
+  background: rgba(255,255,255,0.2);
+  color: white;
+}
+.btn {
+  background: #00c6ff;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.btn:hover { background: #007bff; transform: translateY(-3px); }
+.danger { background: #ff4e50; }
+.danger:hover { background: #e00000; }
+
+/* Table */
+#studentTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+#studentTable th, #studentTable td {
+  padding: 14px;
+  text-align: center;
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+}
+#studentTable th {
+  background: rgba(0,0,0,0.3);
+  font-weight: bold;
+}
+#studentTable tr {
+  transition: 0.4s;
+}
+#studentTable tr:hover {
+  background: rgba(255,255,255,0.2);
+  transform: scale(1.01);
+}
+
+/* Fade-in Animations */
+.fade-in { opacity: 0; transform: translateY(30px); animation: fadeUp 1.5s forwards; }
+@keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeSlide { from { opacity: 0; transform: translateY(-20px);} to {opacity:1;transform:translateY(0);} }
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 15px;
+  margin-top: 20px;
+  background: rgba(0,0,0,0.2);
+  border-radius: 20px 20px 0 0;
+  font-size: 0.9em;
+}
+
+/* Responsive */
+@media(max-width:768px) {
+  .stats-section { flex-direction: column; align-items: center; }
+  #studentForm { flex-direction: column; }
+}

@@ -1,0 +1,38 @@
+[
+  {
+    "name": "rolex",
+    "mark1": 88,
+    "mark2": 99,
+    "mark3": 100,
+    "total": 287,
+    "average": "95.67",
+    "grade": "A+"
+  },
+  {
+    "name": "dilli",
+    "mark1": 87,
+    "mark2": 77,
+    "mark3": 72,
+    "total": 236,
+    "average": "78.67",
+    "grade": "B"
+  },
+  {
+    "name": "benz",
+    "mark1": 100,
+    "mark2": 97,
+    "mark3": 89,
+    "total": 286,
+    "average": "95.33",
+    "grade": "A+"
+  },
+  {
+    "name": "leo",
+    "mark1": 10,
+    "mark2": 10,
+    "mark3": 11,
+    "total": 31,
+    "average": "10.33",
+    "grade": "F"
+  }
+]

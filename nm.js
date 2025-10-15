@@ -1,20 +1,23 @@
+const apiUrl = "http://localhost:3000/students";
+
+document.addEventListener("DOMContentLoaded", loadStudents);
+
 const studentForm = document.getElementById("studentForm");
 const tableBody = document.getElementById("tableBody");
 const totalStudents = document.getElementById("totalStudents");
 const classAverage = document.getElementById("classAverage");
 const clearAllBtn = document.getElementById("clearAll");
 
-document.addEventListener("DOMContentLoaded", loadStudents);
-
-studentForm.addEventListener("submit", (e) => {
+// Add new student
+studentForm.addEventListener("submit", async (e) => {
   e.preventDefault();
 
   const name = document.getElementById("name").value.trim();
-  const mark1 = parseInt(document.getElementById("mark1").value);
-  const mark2 = parseInt(document.getElementById("mark2").value);
-  const mark3 = parseInt(document.getElementById("mark3").value);
+  const mark1 = parseFloat(document.getElementById("mark1").value);
+  const mark2 = parseFloat(document.getElementById("mark2").value);
+  const mark3 = parseFloat(document.getElementById("mark3").value);
 
-  if (name === "" || [mark1, mark2, mark3].some(m => isNaN(m))) {
+  if (!name || [mark1, mark2, mark3].some(isNaN)) {
     alert("Please fill all fields correctly!");
     return;
   }
@@ -25,40 +28,41 @@ studentForm.addEventListener("submit", (e) => {
 
   const student = { name, mark1, mark2, mark3, total, average, grade };
 
-  saveStudent(student);
-  addRow(student);
-  updateStats();
+  await fetch(apiUrl, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(student)
+  });
 
+  loadStudents();
   studentForm.reset();
 });
 
-clearAllBtn.addEventListener("click", () => {
+// Clear all
+clearAllBtn.addEventListener("click", async () => {
   if (confirm("Are you sure you want to clear all records?")) {
-    localStorage.removeItem("students");
-    tableBody.innerHTML = "";
-    updateStats();
+    await fetch(apiUrl, { method: "DELETE" });
+    loadStudents();
   }
 });
 
-function calculateGrade(avg) {
-  if (avg >= 90) return "A+";
-  if (avg >= 80) return "A";
-  if (avg >= 70) return "B";
-  if (avg >= 60) return "C";
-  if (avg >= 50) return "D";
-  return "F";
-}
+// Load all students
+async function loadStudents() {
+  const res = await fetch(apiUrl);
+  const students = await res.json();
 
-function saveStudent(student) {
-  let students = JSON.parse(localStorage.getItem("students")) || [];
-  students.push(student);
-  localStorage.setItem("students", JSON.stringify(students));
-}
-
-function loadStudents() {
-  let students = JSON.parse(localStorage.getItem("students")) || [];
+  tableBody.innerHTML = "";
   students.forEach(addRow);
-  updateStats();
+
+  totalStudents.textContent = students.length;
+  if (students.length > 0) {
+    const avg = (
+      students.reduce((acc, s) => acc + parseFloat(s.average), 0) / students.length
+    ).toFixed(2);
+    classAverage.textContent = avg;
+  } else {
+    classAverage.textContent = 0;
+  }
 }
 
 function addRow(student) {
@@ -75,13 +79,11 @@ function addRow(student) {
   tableBody.appendChild(row);
 }
 
-function updateStats() {
-  let students = JSON.parse(localStorage.getItem("students")) || [];
-  totalStudents.textContent = students.length;
-  if (students.length > 0) {
-    const avg = (students.reduce((acc, s) => acc + parseFloat(s.average), 0) / students.length).toFixed(2);
-    classAverage.textContent = avg;
-  } else {
-    classAverage.textContent = 0;
-  }
+function calculateGrade(avg) {
+  if (avg >= 90) return "A+";
+  if (avg >= 80) return "A";
+  if (avg >= 70) return "B";
+  if (avg >= 60) return "C";
+  if (avg >= 50) return "D";
+  return "F";
 }
